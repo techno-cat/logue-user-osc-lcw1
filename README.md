@@ -13,25 +13,25 @@ Main/Sub mixing ratio.
 - LFO destinaton  
 -> Main/Sub mixing ratio.
 - parameter 1  
-Main osc type:
-    1. Pulse (Duty:1/2)
-    1. Pulse (Duty:1/4)
-    1. Pulse (Duty:1/8)
-    1. Pulse (Duty:1/16)
-    1. Pulse (Duty:1/32)
-    1. Pulse (Duty:1/64)
-    1. Saw
-    1. Tri
+Main osc type (1..8)<ol type="1">
+    <li>Pulse (Duty: 1/2)</li>
+    <li>Pulse (Duty: 1/4)</li>
+    <li>Pulse (Duty: 1/8)</li>
+    <li>Pulse (Duty: 1/16)</li>
+    <li>Pulse (Duty: 1/32)</li>
+    <li>Pulse (Duty: 1/64)</li>
+    <li>Saw</li>
+    <li>Tri</li></ol>
 - parameter 2  
-Sub osc type:
-    1. Pulse (Duty:1/2)
-    1. Pulse (Duty:1/4)
-    1. Pulse (Duty:1/8)
-    1. Pulse (Duty:1/16)
-    1. Pulse (Duty:1/32)
-    1. Pulse (Duty:1/64)
-    1. Saw
-    1. Tri
+Sub osc type (1..8)<ol type="1">
+    <li>Pulse (Duty: 1/2)</li>
+    <li>Pulse (Duty: 1/4)</li>
+    <li>Pulse (Duty: 1/8)</li>
+    <li>Pulse (Duty: 1/16)</li>
+    <li>Pulse (Duty: 1/32)</li>
+    <li>Pulse (Duty: 1/64)</li>
+    <li>Saw</li>
+    <li>Tri</li></ol>
 
 # How to build
 1. Clone (or download) and setup [logue-sdk](https://github.com/korginc/logue-sdk).
@@ -43,4 +43,4 @@ Copyright 2024 Tomoaki Itoh
 This software is released under the MIT License, see LICENSE.txt.
 
 # AUTHOR
-Tomoaki Itoh (techno.cat.miau@gmail.com)  
+Tomoaki Itoh (techno.cat.miau@gmail.com)

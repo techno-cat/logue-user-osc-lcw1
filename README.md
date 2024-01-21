@@ -1,17 +1,15 @@
 # LCW-1
-**Notice: This project is working in progress.**
 
 Lazy Cat Works presents.  
 Dual osc module for NTS-1,  
 can use as `USER OSCILLATORS`.
 
 # Parameters
+
 - shape (NTS-1: A, other: Shape)  
 Detune of Sub osc. (Center is neutral.)
 - shiftshape (NTS-1: B, other: Shift+Shape)  
 Main/Sub mixing ratio.
-- LFO destinaton  
--> Main/Sub mixing ratio.
 - parameter 1  
 Main osc type (1..8)<ol type="1">
     <li>Pulse (Duty: 1/2)</li>
@@ -32,6 +30,10 @@ Sub osc type (1..8)<ol type="1">
     <li>Pulse (Duty: 1/64)</li>
     <li>Saw</li>
     <li>Tri</li></ol>
+- parameter 3  
+LFO destinaton (1..2)<ol type="1">
+    <li>Detune of Sub osc</li>
+    <li>Main/Sub mixing ratio</li></ol>
 
 # How to build
 1. Clone (or download) and setup [logue-sdk](https://github.com/korginc/logue-sdk).

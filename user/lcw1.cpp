@@ -12,6 +12,10 @@ This software is released under the MIT License, see LICENSE.txt.
 #define LCW_OSC_TIMER_MAX (1 << LCW_OSC_TIMER_BITS)
 #define LCW_OSC_TIMER_MASK ((LCW_OSC_TIMER_MAX) - 1)
 
+#define LCW_LFO_DEST_OSC2_PITCH (0)
+#define LCW_LFO_DEST_MIX_RATIO (1)
+#define LCW_LFO_DEST_INDEX_MAX (LCW_LFO_DEST_MIX_RATIO)
+
 typedef struct {
   uint32_t t;
   uint32_t dt;
@@ -23,6 +27,7 @@ static struct {
   float shiftshape = 0;
   int32_t mainTableIndex = 0;
   int32_t subTableIndex = 0;
+  int32_t lfoDestination = LCW_LFO_DEST_OSC2_PITCH;
 } s_param;
 
 static struct {
@@ -90,8 +95,13 @@ void OSC_CYCLE(const user_osc_param_t * const params,
   osc[0].table = &(lcwWaveTables[LCW_CLIP(s_param.mainTableIndex, 0, LCW_PULSE_TABLE_INDEX_MAX)]);
   osc[1].table = &(lcwWaveTables[LCW_CLIP(s_param.subTableIndex, 0, LCW_PULSE_TABLE_INDEX_MAX)]);
 
+  const int32_t lfoDstIndex = LCW_CLIP(s_param.lfoDestination, 0, LCW_LFO_DEST_INDEX_MAX);
+  int32_t lfoOut[] = { 0, 0 };
+
   for (; y != y_e; ) {
-    int32_t subVol = subVol0 + (shape_lfo >> 24);
+    lfoOut[lfoDstIndex] = shape_lfo;
+
+    int32_t subVol = subVol0 + (lfoOut[LCW_LFO_DEST_MIX_RATIO] >> 24);
     subVol = LCW_CLIP(subVol, 0, 0x100);
     const int32_t mainVol = 0x100 - subVol;
 
@@ -101,7 +111,8 @@ void OSC_CYCLE(const user_osc_param_t * const params,
     *(y++) = (q31_t)( LCW_CLIP(out, -0x01000000, 0x00FFFFFF) << (31 - (12 + 8)) );
 
     osc[0].dt = pitch_to_timer_delta( pitch1 >> 8 );
-    osc[1].dt = pitch_to_timer_delta( pitch2 >> 8 );
+    // LFOで揺らす範囲は[0 .. +1/16oct]
+    osc[1].dt = pitch_to_timer_delta( (pitch2 + (lfoOut[LCW_LFO_DEST_OSC2_PITCH] >> (8 + 4))) >> 8 );
     osc[0].t = (osc[0].t + osc[0].dt) & LCW_OSC_TIMER_MASK;
     osc[1].t = (osc[1].t + osc[1].dt) & LCW_OSC_TIMER_MASK;
 
@@ -137,6 +148,9 @@ void OSC_PARAM(uint16_t index, uint16_t value)
     break;
   case k_user_osc_param_id2:
     s_param.subTableIndex = (int32_t)value;
+    break;
+  case k_user_osc_param_id3:
+    s_param.lfoDestination = (int32_t)value;
     break;
   default:
     break;

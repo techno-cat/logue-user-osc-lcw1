@@ -9,7 +9,6 @@ use constant TABLE_SIZE_BITS => 10;
 use constant VALUE_MAX =>  0x1000; # s3.12
 use constant VALUE_MIN => -VALUE_MAX;
 
-use constant TABLE_BITS => 9;
 use constant X_STEP => 1;
 
 use Imager;
